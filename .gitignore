@@ -3,3 +3,6 @@ node_modules/
 .next/
 dist/
 *.log
+panel/src/bot-config.json
+panel/tsconfig.tsbuildinfo
+panel/test_*.js

@@ -21,10 +21,12 @@ export default async function ConsultasPage() {
 
       {!consultas || consultas.length === 0 ? (
         <div className="card">
-          <div className="empty-state">
-            <span className="empty-state-icon">💬</span>
-            <p className="empty-state-title">No hay consultas todavía</p>
-            <p className="empty-state-text">Cuando el bot reciba mensajes de WhatsApp, aparecerán aquí automáticamente</p>
+          <div className="empty-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 20px' }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: '48px', height: '48px', color: 'var(--text-muted)', marginBottom: '16px' }}>
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            </svg>
+            <p className="empty-state-title" style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '8px' }}>No hay consultas todavía</p>
+            <p className="empty-state-text" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Cuando el bot reciba mensajes de WhatsApp, aparecerán aquí automáticamente</p>
           </div>
         </div>
       ) : (
@@ -38,8 +40,12 @@ export default async function ConsultasPage() {
                     <div style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>
                       {c.clientes?.nombre || 'Sin nombre'}
                     </div>
-                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                      📱 {c.clientes?.telefono || '—'}
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '12px', height: '12px' }}>
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                        <line x1="12" y1="18" x2="12.01" y2="18" />
+                      </svg>
+                      {c.clientes?.telefono || '—'}
                     </div>
                   </div>
                   <div style={{ fontSize: '11px', color: 'var(--text-muted)', textAlign: 'right', flexShrink: 0 }}>
@@ -53,11 +59,34 @@ export default async function ConsultasPage() {
                 )}
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                   {c.propiedades && (
-                    <span className="badge badge-blue">🏡 {c.propiedades.titulo || c.propiedades.zona}</span>
+                    <span className="badge badge-blue" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '11px', height: '11px' }}>
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                      </svg>
+                      {c.propiedades.titulo || c.propiedades.zona}
+                    </span>
                   )}
                   {c.respuesta && (
-                    <span className={`badge ${c.respuesta.includes('Sin resultados') ? 'badge-gray' : 'badge-green'}`}>
-                      {c.respuesta.includes('Sin resultados') ? '❌ Sin resultados' : `✅ ${c.respuesta}`}
+                    <span className={`badge ${c.respuesta.includes('Sin resultados') ? 'badge-gray' : 'badge-green'}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      {c.respuesta.includes('Sin resultados') ? (
+                        <>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '11px', height: '11px' }}>
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                          </svg>
+                          Sin resultados
+                        </>
+                      ) : (
+                        <>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '11px', height: '11px' }}>
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                          </svg>
+                          {c.respuesta}
+                        </>
+                      )}
                     </span>
                   )}
                 </div>
@@ -101,8 +130,25 @@ export default async function ConsultasPage() {
                       </td>
                       <td>
                         {c.respuesta ? (
-                          <span className={`badge ${c.respuesta.includes('Sin resultados') ? 'badge-gray' : 'badge-green'}`} style={{whiteSpace:'nowrap'}}>
-                            {c.respuesta.includes('Sin resultados') ? '❌ Sin resultados' : `✅ ${c.respuesta}`}
+                          <span className={`badge ${c.respuesta.includes('Sin resultados') ? 'badge-gray' : 'badge-green'}`} style={{ whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            {c.respuesta.includes('Sin resultados') ? (
+                              <>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '11px', height: '11px' }}>
+                                  <circle cx="12" cy="12" r="10" />
+                                  <line x1="15" y1="9" x2="9" y2="15" />
+                                  <line x1="9" y1="9" x2="15" y2="15" />
+                                </svg>
+                                Sin resultados
+                              </>
+                            ) : (
+                              <>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '11px', height: '11px' }}>
+                                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                  <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                {c.respuesta}
+                              </>
+                            )}
                           </span>
                         ) : '—'}
                       </td>

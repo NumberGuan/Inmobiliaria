@@ -5,7 +5,7 @@ import AppShell from './AppShell';
 
 export default function ConditionalShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isPublic = pathname.startsWith('/landing');
+  const isPublic = pathname.startsWith('/landing') || pathname.startsWith('/login');
 
   if (isPublic) {
     return <>{children}</>;

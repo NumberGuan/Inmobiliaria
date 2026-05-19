@@ -1,32 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from '@/lib/supabase';
 
 // GET: Listar todas las propiedades
 export async function GET() {
-  const { data, error } = await supabase
-    .from('propiedades')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from('propiedades')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+    if (error) {
+      console.error('Database query error in GET /api/propiedades:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(data);
+  } catch (e: any) {
+    console.error('Supabase fetch failed in GET /api/propiedades:', e);
+    return NextResponse.json({
+      error: 'Error de conexión con la base de datos. Verificá las credenciales y el estado de tu red.',
+      details: e.message
+    }, { status: 503 });
+  }
 }
 
 // POST: Crear nueva propiedad
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const { data, error } = await supabase
-    .from('propiedades')
-    .insert(body)
-    .select()
-    .single();
+    const { data, error } = await supabase
+      .from('propiedades')
+      .insert(body)
+      .select()
+      .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data, { status: 201 });
+    if (error) {
+      console.error('Database query error in POST /api/propiedades:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(data, { status: 201 });
+  } catch (e: any) {
+    console.error('Supabase fetch failed in POST /api/propiedades:', e);
+    return NextResponse.json({
+      error: 'Error de conexión con la base de datos. Verificá las credenciales y el estado de tu red.',
+      details: e.message
+    }, { status: 503 });
+  }
 }

@@ -10,6 +10,81 @@ const BARRIOS_TL = [
   'Campo', 'Otro'
 ];
 
+// SVG Components
+function ArrowLeftIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '13px', height: '13px', display: 'inline-block', verticalAlign: '-1.5px', marginRight: '6px' }}>
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
+  );
+}
+
+function AlertIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '16px', height: '16px', display: 'inline-block', verticalAlign: '-3px', marginRight: '8px' }}>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
+  );
+}
+
+function DollarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px', display: 'inline-block', verticalAlign: '-2px', marginRight: '6px', color: 'var(--primary-teal)' }}>
+      <line x1="12" x2="12" y1="2" y2="22" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px', display: 'inline-block', verticalAlign: '-2px', marginRight: '6px', color: 'var(--primary-teal)' }}>
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '15px', height: '15px', display: 'inline-block', verticalAlign: '-2px', marginRight: '6px' }}>
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </svg>
+  );
+}
+
+function FolderUploadIcon({ size = 26 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: `${size}px`, height: `${size}px`, display: 'inline-block', color: 'var(--primary-teal)', opacity: 0.85 }}>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" y1="3" x2="12" y2="15" />
+    </svg>
+  );
+}
+
+function SaveIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '15px', height: '15px', display: 'inline-block', verticalAlign: '-2.5px', marginRight: '6px' }}>
+      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+      <polyline points="17 21 17 13 7 13 7 21" />
+      <polyline points="7 3 7 8 15 8" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '13px', height: '13px', display: 'inline-block', color: 'var(--success)', verticalAlign: '-1.5px', marginRight: '6px' }}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
 export default function NuevaPropiedadPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -140,15 +215,21 @@ export default function NuevaPropiedadPage() {
 
   return (
     <>
-      <Link href="/propiedades" className="back-link">← Volver a propiedades</Link>
+      <Link href="/propiedades" className="back-link" style={{ display: 'inline-flex', alignItems: 'center' }}>
+        <ArrowLeftIcon /> Volver a propiedades
+      </Link>
 
       <div className="page-header">
-        <h1 className="page-title">Nueva propiedad</h1>
+        <h1 className="page-title" style={{ fontFamily: 'var(--font-display, Cinzel, serif)' }}>Nueva propiedad</h1>
         <p className="page-subtitle">Trenque Lauquen — El bot la recomendará automáticamente a los clientes</p>
       </div>
 
       <div className="card" style={{ maxWidth: '800px' }}>
-        {error && <div className="alert alert-error">⚠️ {error}</div>}
+        {error && (
+          <div className="alert alert-error" style={{ display: 'flex', alignItems: 'center' }}>
+            <AlertIcon /> {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} noValidate>
 
@@ -164,27 +245,27 @@ export default function NuevaPropiedadPage() {
             <div className="form-group">
               <label className="form-label">Operación *</label>
               <select className="form-select" name="tipo" value={form.tipo} onChange={handleChange}>
-                <option value="venta">💰 Venta</option>
-                <option value="alquiler">🔑 Alquiler</option>
+                <option value="venta">Venta</option>
+                <option value="alquiler">Alquiler</option>
               </select>
             </div>
             <div className="form-group">
               <label className="form-label">Tipo de propiedad *</label>
               <select className="form-select" name="categoria" value={form.categoria} onChange={handleChange}>
-                <option value="casa">🏡 Casa</option>
-                <option value="departamento">🏢 Departamento</option>
-                <option value="local">🏪 Local comercial</option>
-                <option value="terreno">🌿 Terreno</option>
-                <option value="oficina">💼 Oficina</option>
-                <option value="campo">🌾 Campo</option>
+                <option value="casa">Casa</option>
+                <option value="departamento">Departamento</option>
+                <option value="local">Local comercial</option>
+                <option value="terreno">Terreno</option>
+                <option value="oficina">Oficina</option>
+                <option value="campo">Campo</option>
               </select>
             </div>
           </div>
 
           {/* Precio — bloque mejorado */}
           <div style={{ background: 'var(--bg-subtle)', borderRadius: '12px', padding: '16px 18px', marginBottom: '18px', border: '1.5px solid var(--border)' }}>
-            <div style={{ fontWeight: '600', fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '14px', letterSpacing: '0.03em' }}>
-              💵 PRECIO
+            <div style={{ fontWeight: '600', fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '14px', letterSpacing: '0.03em', display: 'flex', alignItems: 'center' }}>
+              <DollarIcon /> PRECIO
             </div>
             <div className="form-grid-21">
               <div className="form-group" style={{ marginBottom: 0 }}>
@@ -221,8 +302,8 @@ export default function NuevaPropiedadPage() {
           </div>
 
           {/* Zona — Ciudad fija Trenque Lauquen */}
-          <div style={{ marginBottom: '18px', padding: '10px 14px', background: 'var(--info-bg)', borderRadius: '10px', border: '1px solid var(--info-border)', fontSize: '13px', color: 'var(--info-text)' }}>
-            📍 Ciudad: <strong>Trenque Lauquen</strong>, Buenos Aires — fija para todas las propiedades
+          <div style={{ marginBottom: '18px', padding: '10px 14px', background: 'var(--info-bg)', borderRadius: '10px', border: '1px solid var(--info-border)', fontSize: '13px', color: 'var(--info-text)', display: 'flex', alignItems: 'center' }}>
+            <PinIcon /> Ciudad: <strong style={{ marginLeft: '4px' }}>Trenque Lauquen</strong>, Buenos Aires — fija para todas las propiedades
           </div>
 
           <div className="form-grid-2">
@@ -263,13 +344,13 @@ export default function NuevaPropiedadPage() {
           <div className="form-group">
             <label className="form-label">Descripción (opcional)</label>
             <textarea className="form-textarea" name="descripcion" value={form.descripcion}
-              onChange={handleChange} placeholder="Describí las características principales: estado, comodidades, entorno..." />
+              placeholder="Describí las características principales: estado, comodidades, entorno..." />
           </div>
 
           {/* Imágenes */}
           <div style={{ marginBottom: '18px' }}>
-            <label className="form-label" style={{ marginBottom: '10px', display: 'block' }}>
-              📷 Imágenes ({imageFiles.length}/20)
+            <label className="form-label" style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+              <CameraIcon /> Imágenes ({imageFiles.length}/20)
             </label>
 
             <label className="upload-dropzone" style={{
@@ -283,7 +364,7 @@ export default function NuevaPropiedadPage() {
               borderRadius: '12px',
               background: 'var(--bg-subtle)',
               cursor: 'pointer',
-              transition: 'all 0.2s',
+              transition: 'all 0.2s ease-in-out',
             }}>
               <input
                 type="file"
@@ -293,7 +374,7 @@ export default function NuevaPropiedadPage() {
                 style={{ display: 'none' }}
                 disabled={imageFiles.length >= 20}
               />
-              <span style={{ fontSize: '32px' }}>📁</span>
+              <FolderUploadIcon size={32} />
               <span style={{ fontWeight: '600', fontSize: '14px', color: 'var(--text-primary)' }}>
                 {imageFiles.length >= 20 ? 'Límite alcanzado (20/20)' : 'Hacé clic o arrastrá imágenes aquí'}
               </span>
@@ -329,7 +410,7 @@ export default function NuevaPropiedadPage() {
                         position: 'absolute',
                         top: '4px',
                         left: '4px',
-                        background: 'var(--gold)',
+                        background: 'var(--primary-teal, #14b8a6)',
                         color: 'white',
                         fontSize: '9px',
                         fontWeight: '700',
@@ -371,19 +452,54 @@ export default function NuevaPropiedadPage() {
           <div className="form-checkbox-row">
             <input type="checkbox" id="disponible" name="disponible"
               checked={form.disponible} onChange={handleChange} />
-            <label htmlFor="disponible">
-              ✅ Propiedad disponible — el bot la mostrará a los clientes
+            <label htmlFor="disponible" style={{ display: 'flex', alignItems: 'center' }}>
+              <CheckIcon /> Propiedad disponible — el bot la mostrará a los clientes
             </label>
           </div>
 
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <button type="submit" className="btn btn-primary" disabled={loading || uploading}>
-              {uploading ? '⏳ Subiendo imágenes...' : loading ? '⏳ Guardando...' : '💾 Guardar propiedad'}
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '16px' }}>
+            <button type="submit" className="btn btn-primary" disabled={loading || uploading} style={{ display: 'flex', alignItems: 'center' }}>
+              {uploading ? (
+                <>
+                  <span className="spinner-mini" /> Subiendo imágenes...
+                </>
+              ) : loading ? (
+                <>
+                  <span className="spinner-mini" /> Guardando...
+                </>
+              ) : (
+                <>
+                  <SaveIcon /> Guardar propiedad
+                </>
+              )}
             </button>
             <Link href="/propiedades" className="btn btn-secondary">Cancelar</Link>
           </div>
         </form>
       </div>
+
+      <style>{`
+        .upload-dropzone:hover {
+          border-color: var(--primary-teal) !important;
+          background: var(--bg-card-hover) !important;
+        }
+        
+        .spinner-mini {
+          width: 14px;
+          height: 14px;
+          border: 2px solid rgba(255,255,255,0.3);
+          border-radius: 50%;
+          border-top-color: #ffffff;
+          display: inline-block;
+          animation: spin 0.8s linear infinite;
+          margin-right: 8px;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </>
   );
 }
+
